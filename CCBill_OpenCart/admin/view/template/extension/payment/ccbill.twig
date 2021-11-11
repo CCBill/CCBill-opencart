@@ -1,0 +1,107 @@
+{{ header }}{{ column_left }}
+<div id="content">
+  <div class="page-header">
+    <div class="container-fluid">
+      <div class="pull-right">
+        <button type="submit" form="form-payment" data-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary"><i class="fa fa-save"></i></button>
+        <a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i></a></div>
+      <h1>{{ heading_title }}</h1>
+      <ul class="breadcrumb">
+        {% for breadcrumb in breadcrumbs %}
+        <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  <div class="container-fluid">
+    {% if error_warning %}
+    <div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> {{ error_warning }}
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+    </div>
+    {% endif %}
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"><i class="fa fa-pencil"></i> {{ text_edit }}</h3>
+      </div>
+      <div class="panel-body">
+        <form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-payment" class="form-horizontal">
+
+		  <div class="form-group required">
+			   <label class="col-sm-2 control-label" for="entry_client_account_no">{{ entry_client_account_no }}</label>
+  			<div class="col-sm-10">
+  			  <input type="text" name="payment_ccbill_client_account_no" value="{{ payment_ccbill_client_account_no }}" placeholder="" id="entry_client_account_no" class="form-control"/>
+          {% if error_payment_ccbill_client_account_no %}
+  			  <div class="text-danger">{{ error_payment_ccbill_client_account_no }}</div>
+  			  {% endif %}
+  			</div>
+		  </div>
+
+      <div class="form-group required">
+         <label class="col-sm-2 control-label" for="entry_client_subaccount_no">{{ entry_client_subaccount_no }}</label>
+        <div class="col-sm-10">
+          <input type="text" name="payment_ccbill_client_subaccount_no" value="{{ payment_ccbill_client_subaccount_no }}" placeholder="" id="entry_client_subaccount_no" class="form-control"/>
+          {% if error_payment_ccbill_client_subaccount_no %}
+          <div class="text-danger">{{ error_payment_ccbill_client_subaccount_no }}</div>
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="form-group required">
+         <label class="col-sm-2 control-label" for="entry_form_name">{% if payment_ccbill_is_flexform != 'yes' %}{{ entry_form_name }}{% endif %}{% if payment_ccbill_is_flexform != 'no' %}{{ entry_flexform_id }}{% endif %}</label>
+        <div class="col-sm-10">
+          <input type="text" name="payment_ccbill_form_name" value="{{ payment_ccbill_form_name }}" placeholder="" id="entry_form_name" class="form-control"/>
+          {% if error_payment_ccbill_form_name %}
+          <div class="text-danger">{{ error_payment_ccbill_form_name }}</div>
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="form-group required" style="{% if payment_ccbill_is_flexform == 'yes' %}display: none;{% endif %}">
+         <label class="col-sm-2 control-label" for="entry_is_flexform">{{ entry_is_flexform }}</label>
+        <div class="col-sm-10">
+          <select name="payment_ccbill_is_flexform" id="entry_is_flexform" class="form-control">
+    				<option value="no"{% if payment_ccbill_is_flexform == 'no' %} selected="selected"{% endif %}>No</option>
+    				<option value="yes"{% if payment_ccbill_is_flexform == 'yes' %} selected="selected"{% endif %}>Yes</option>
+  			  </select>
+        </div>
+      </div>
+
+      <div class="form-group required">
+         <label class="col-sm-2 control-label" for="entry_currency_code">{{ entry_currency_code }}</label>
+        <div class="col-sm-10">
+          <select name="payment_ccbill_currency_code" id="entry_currency_code" class="form-control">
+            <option value="840"{% if payment_ccbill_currency_code == '840' %} selected="selected"{% endif %}>USD</option>
+            <option value="978"{% if payment_ccbill_currency_code == '978' %} selected="selected"{% endif %}>EUR</option>
+            <option value="036"{% if payment_ccbill_currency_code == '036' %} selected="selected"{% endif %}>AUD</option>
+            <option value="124"{% if payment_ccbill_currency_code == '124' %} selected="selected"{% endif %}>CAD</option>
+            <option value="826"{% if payment_ccbill_currency_code == '826' %} selected="selected"{% endif %}>GBP</option>
+            <option value="392"{% if payment_ccbill_currency_code == '392' %} selected="selected"{% endif %}>JPY</option>
+  			  </select>
+        </div>
+      </div>
+
+      <div class="form-group required">
+         <label class="col-sm-2 control-label" for="entry_salt">{{ entry_salt }}</label>
+        <div class="col-sm-10">
+          <input type="text" name="payment_ccbill_salt" value="{{ payment_ccbill_salt }}" placeholder="" id="entry-salt" class="form-control"/>
+          {% if error_payment_ccbill_salt %}
+          <div class="text-danger">{{ error_payment_ccbill_salt }}</div>
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="form-group required">
+         <label class="col-sm-2 control-label" for="input-status">{{ entry_status }}</label>
+        <div class="col-sm-10">
+          <select name="payment_ccbill_status" id="input-status" class="form-control">
+    				<option value="0"{% if payment_ccbill_status == 0 %} selected="selected"{% endif %}>Disabled</option>
+    				<option value="1"{% if payment_ccbill_status == 1 %} selected="selected"{% endif %}>Enabled</option>
+  			  </select>
+        </div>
+      </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{{ footer }}
